@@ -14,6 +14,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { MyDeleteIcon } from "../Styled";
+import Navbar from "../../components/Navbar/Index";
 
 const Subjects = () => {
   const [list, setList] = useState([]);
@@ -21,13 +22,13 @@ const Subjects = () => {
   const [titulo, setTitulo] = useState("");
   const [resposta, setResposta] = useState(null);
 
-  const getAll = (() => {
+  const getAll = () => {
     var response = axios
       .get("https://secret-headland-69654.herokuapp.com/materias/")
       .then((response) => {
         setList(response.data);
       });
-    }, []);
+  };
 
   const postUser = (e) => {
     e.preventDefault();
@@ -47,23 +48,16 @@ const Subjects = () => {
 
   const deletUser = async (id) => {
     const delBodyRequest = {
-      id: `${id}`,
-      titulo: `${titulo}`,
-      professor_nome: `${professor_nome}`,
+      id,
+      titulo,
+      professor_nome,
     };
     await axios.delete(
       "https://secret-headland-69654.herokuapp.com/materias/",
-      { data: { delBodyRequest } }
+      { data: delBodyRequest }
     );
 
-    setList((oldList) =>
-      oldList.filter(
-        (item) =>
-          item.id !== id ||
-          item.titulo !== titulo ||
-          item.nome !== professor_nome
-      )
-    );
+    setList((oldList) => oldList.filter((item) => item.id !== id));
   };
 
   return (
@@ -107,7 +101,7 @@ const Subjects = () => {
                   <TableCell align="center">{itens.titulo}</TableCell>
                   <TableCell align="center">{itens.professor_nome}</TableCell>
                   <TableCell align="center">
-                    <Button onClick={() => deletUser()}>
+                    <Button onClick={() => deletUser(itens.id)}>
                       <MyDeleteIcon />
                     </Button>
                   </TableCell>
