@@ -5,18 +5,20 @@ import Subjects from "./pages/Subjects/Index";
 import Home from "./pages/Home/Index";
 import Navbar from "./components/Navbar/Index";
 import Footer from "./components/Footer/Index";
+import { Container } from "@mui/material";
 
 function App() {
   return (
-    <div className="container">
+    <Container>
       <Navbar />
+
       <Routes>
-        <Route path="http://localhost:3000/" element={<Home />} />
+        <Route path="" element={<Home />} />
         <Route path="alunos" element={<Students />} />
         <Route path="materias" element={<Subjects />} />
       </Routes>
       <Footer />
-    </div>
+    </Container>
   );
 }
 
