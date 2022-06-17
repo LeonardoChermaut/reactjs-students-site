@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import * as React from "react";
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { IconForm, ListButton, MyContainer, MyTitleForm } from "./Styled";
+import { IconForm, ListButton, MyContainer, MyTitleForm } from "../Styled";
 import Container from "@mui/material/Container";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -14,33 +13,34 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { MyDeleteIcon, MyTitleTable } from "../Table/Styled";
+import { MyDeleteIcon } from "../Styled";
+import { useState } from "react";
 
 const ariaLabel = { "aria-label": "description" };
 
-const FormApi = () => {
+const Students = () => {
   const [list, setList] = useState([]);
-  const [professor_nome, setProfessor_Nome] = useState("");
+  const [aluno_nome, setAluno_Nome] = useState("");
   const [titulo, setTitulo] = useState("");
   const [resposta, setResposta] = useState(null);
 
-  const getAll = async () => {
-    var response = await axios
-      .get("https://secret-headland-69654.herokuapp.com/materias/")
+  const getAll = (() => {
+    var response = axios
+      .get("https://secret-headland-69654.herokuapp.com/alunos/")
       .then((response) => {
         setList(response.data);
       });
-  };
+    }, []);
 
   const postUser = (e) => {
     e.preventDefault();
     const postBodyRequest = {
       titulo,
-      professor_nome,
+      aluno_nome,
     };
     axios
       .post(
-        "https://secret-headland-69654.herokuapp.com/materias/",
+        "https://secret-headland-69654.herokuapp.com/alunos/",
         postBodyRequest
       )
       .then((response) => {
@@ -48,14 +48,14 @@ const FormApi = () => {
       });
   };
 
-  const deletUser = async (id) => {
+  const deleteUser = async (id) => {
     const delBodyRequest = {
-      id: `${id}`,
-      titulo: `${titulo}`,
-      professor_nome: `${professor_nome}`,
+      id,
+      titulo,
+      aluno_nome,
     };
     await axios.delete(
-      "https://secret-headland-69654.herokuapp.com/materias/",
+      "https://secret-headland-69654.herokuapp.com/alunos/",
       { data: { delBodyRequest } }
     );
 
@@ -64,12 +64,13 @@ const FormApi = () => {
         (item) =>
           item.id !== id ||
           item.titulo !== titulo ||
-          item.nome !== professor_nome
+          item.nome !== aluno_nome
       )
     );
   };
 
   return (
+    <>
     <Container
       position="static"
       maxWidth="md"
@@ -110,7 +111,7 @@ const FormApi = () => {
                   <TableCell align="center">{itens.titulo}</TableCell>
                   <TableCell align="center">{itens.professor_nome}</TableCell>
                   <TableCell align="center">
-                    <Button onClick={() => deletUser()}>
+                    <Button onClick={() => deleteUser()}>
                       <MyDeleteIcon />
                     </Button>
                   </TableCell>
@@ -129,7 +130,7 @@ const FormApi = () => {
         noValidate
         autoComplete="off"
       >
-        <MyTitleForm>Adicionar novas matérias</MyTitleForm>
+        <MyTitleForm>Adicionar novos alunos</MyTitleForm>
 
         <Input
           placeholder="Titulo"
@@ -140,8 +141,8 @@ const FormApi = () => {
         <Input
           placeholder="Nome do professor"
           inputProps={ariaLabel}
-          value={professor_nome}
-          onChange={(e) => setProfessor_Nome(e.target.value)}
+          value={aluno_nome}
+          onChange={(e) => setAluno_Nome(e.target.value)}
         />
         {resposta && resposta.data.message && <h4>{resposta.data.message}</h4>}
         <Button type="Submit" variant="contained" endIcon={<SendIcon />}>
@@ -149,7 +150,8 @@ const FormApi = () => {
         </Button>
       </Box>
     </Container>
+    </>
   );
 };
 
-export default FormApi;
+export default Students;

@@ -1,10 +1,11 @@
-import React from "react";
-import { MyContainer } from "../Form/Styled";
+import * as React from "react";
+import { MyContainer } from "../Styled";
 import { MyImageHome, MyTitleHome } from "./Styled";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, BrowserRouter } from "react-router-dom";
 
 const Main = () => {
   return (
+    <BrowserRouter>
     <MyContainer>
       <MyTitleHome>
         Estude de casa, através de nossos sistemas.<br></br>
@@ -15,6 +16,7 @@ const Main = () => {
         alt="Ilustração de três moças estudando."
       />
     </MyContainer>
+    </BrowserRouter>
   );
 };
 
