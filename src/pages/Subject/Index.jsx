@@ -1,10 +1,15 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Input from "@mui/material/Input";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
-import { IconForm, ListButton, MyContainer, MyTitleForm } from "../Styled";
+import {
+  IconForm,
+  ListButton,
+  MyContainer,
+  MyTitleForm,
+  BoxFormSubject,
+  InputSubject,
+} from "./Styled";
 import Container from "@mui/material/Container";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,34 +18,31 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { MyDeleteIcon } from "../Styled";
-import { useState } from "react";
+import { MyDeleteIcon } from "./Styled";
 
-const ariaLabel = { "aria-label": "description" };
-
-const Students = () => {
+const Subjects = () => {
   const [list, setList] = useState([]);
-  const [aluno_nome, setAluno_Nome] = useState("");
+  const [professor_nome, setProfessor_Nome] = useState("");
   const [titulo, setTitulo] = useState("");
   const [resposta, setResposta] = useState(null);
 
-  const getAll = (() => {
-    var response = axios
-      .get("https://secret-headland-69654.herokuapp.com/alunos/")
+  const getAll = () => {
+    axios
+      .get("https://secret-headland-69654.herokuapp.com/materias/")
       .then((response) => {
         setList(response.data);
       });
-    }, []);
+  };
 
   const postUser = (e) => {
     e.preventDefault();
     const postBodyRequest = {
       titulo,
-      aluno_nome,
+      professor_nome,
     };
     axios
       .post(
-        "https://secret-headland-69654.herokuapp.com/alunos/",
+        "https://secret-headland-69654.herokuapp.com/materias/",
         postBodyRequest
       )
       .then((response) => {
@@ -48,29 +50,21 @@ const Students = () => {
       });
   };
 
-  const deleteUser = async (id) => {
+  const deletUser = async (id) => {
     const delBodyRequest = {
       id,
       titulo,
-      aluno_nome,
+      professor_nome,
     };
     await axios.delete(
-      "https://secret-headland-69654.herokuapp.com/alunos/",
-      { data: { delBodyRequest } }
+      "https://secret-headland-69654.herokuapp.com/materias/",
+      { data: delBodyRequest }
     );
 
-    setList((oldList) =>
-      oldList.filter(
-        (item) =>
-          item.id !== id ||
-          item.titulo !== titulo ||
-          item.nome !== aluno_nome
-      )
-    );
+    setList((oldList) => oldList.filter((item) => item.id !== id));
   };
 
   return (
-    <>
     <Container
       position="static"
       maxWidth="md"
@@ -111,7 +105,7 @@ const Students = () => {
                   <TableCell align="center">{itens.titulo}</TableCell>
                   <TableCell align="center">{itens.professor_nome}</TableCell>
                   <TableCell align="center">
-                    <Button onClick={() => deleteUser()}>
+                    <Button onClick={() => deletUser(itens.id)}>
                       <MyDeleteIcon />
                     </Button>
                   </TableCell>
@@ -121,7 +115,8 @@ const Students = () => {
           </TableContainer>
         </MyContainer>
       ))}
-      <Box
+
+      <BoxFormSubject
         component="form"
         onSubmit={postUser}
         sx={{
@@ -130,28 +125,25 @@ const Students = () => {
         noValidate
         autoComplete="off"
       >
-        <MyTitleForm>Adicionar novos alunos</MyTitleForm>
+        <MyTitleForm>Adicionar novas matérias</MyTitleForm>
 
-        <Input
+        <InputSubject
           placeholder="Titulo"
-          inputProps={ariaLabel}
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
         />
-        <Input
+        <InputSubject
           placeholder="Nome do professor"
-          inputProps={ariaLabel}
-          value={aluno_nome}
-          onChange={(e) => setAluno_Nome(e.target.value)}
+          value={professor_nome}
+          onChange={(e) => setProfessor_Nome(e.target.value)}
         />
         {resposta && resposta.data.message && <h4>{resposta.data.message}</h4>}
         <Button type="Submit" variant="contained" endIcon={<SendIcon />}>
           Enviar
         </Button>
-      </Box>
+      </BoxFormSubject>
     </Container>
-    </>
   );
 };
 
-export default Students;
+export default Subjects;

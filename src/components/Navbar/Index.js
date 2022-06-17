@@ -12,7 +12,6 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { MyNavbar } from "./Styled";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const pages = ["Matérias", "Alunos", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -44,10 +43,10 @@ const Navbar = () => {
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
           />
           <Typography
+            href="http://localhost:3000/"
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -120,15 +119,27 @@ const Navbar = () => {
             LEARNING
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              href="http://localhost:3000/materias"
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Matérias
+            </Button>
+            <Button
+              href="http://localhost:3000/alunos"
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Alunos
+            </Button>
+            <Button
+              href="http://serratec.org/"
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Blog
+            </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

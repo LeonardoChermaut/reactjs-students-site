@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
-import Students from "./pages/Students/index";
-import Subjects from "./pages/Subjects/Index";
+import Students from "./pages/Student/index";
+import Subjects from "./pages/Subject/Index";
 import Home from "./pages/Home/Index";
 import Navbar from "./components/Navbar/Index";
 import Footer from "./components/Footer/Index";
