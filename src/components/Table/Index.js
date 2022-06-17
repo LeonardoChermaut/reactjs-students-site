@@ -46,11 +46,6 @@ export default function DataTable() {
     setRows(rows.filter((user) => !linhasSelecionadas.includes(user.id)));
   };
 
-  // useEffect(() => {
-  //   if (rows.length > 0) {
-  //     setLoading(false);
-  //   }
-  // }, [rows]);
   return (
     <Container
       maxWidth="md"

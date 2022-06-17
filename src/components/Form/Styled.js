@@ -24,5 +24,12 @@ export const IconRefresh = styled(RestartAltIcon)`
 
 export const MyContainer = styled(Container)`
   && {
+    margin-top: 2rem;
   }
+`;
+
+export const MyTitleForm = styled.h2`
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  margin-bottom: 3.5rem;
 `;
