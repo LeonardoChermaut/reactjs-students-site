@@ -48,7 +48,7 @@ const FormApi = () => {
       });
   };
 
-  const deletUser = async (id, titulo, professor_nome) => {
+  const deletUser = async (id) => {
     const delBodyRequest = {
       id: `${id}`,
       titulo: `${titulo}`,
@@ -56,7 +56,7 @@ const FormApi = () => {
     };
     await axios.delete(
       "https://secret-headland-69654.herokuapp.com/materias/",
-      delBodyRequest
+      { data: { delBodyRequest } }
     );
 
     setList((oldList) =>
