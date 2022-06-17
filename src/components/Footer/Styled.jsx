@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Footer = styled.footer`
   width: 100%;
-  height: 100px;
+  height: 70px;
   background: rgb(2, 0, 36);
   background: linear-gradient(90deg, rgb(57, 28, 57) 33%, #4f0606 100%);
   position: fixed;
@@ -14,7 +14,7 @@ export const Footer = styled.footer`
 
 export const MyTextFooter = styled.p`
   text-align: center;
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
   font-size: 17px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #fff;

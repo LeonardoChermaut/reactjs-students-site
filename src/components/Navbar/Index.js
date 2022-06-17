@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { MyNavbar } from "./Styled";
 
-const pages = ["Tabelas", "Alunos", "Blog"];
+const pages = ["Matérias", "Alunos", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
