@@ -7,11 +7,11 @@ import {
   ListButton,
   MyContainer,
   MyTitleForm,
+  MyTitleStudents,
   MyDeleteIcon,
   BoxFormStudent,
   InputStudent,
   ImageStudent,
-  MyTitleStudents,
 } from "../Student/Styled";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -64,7 +64,7 @@ const Students = () => {
       idade,
     };
     await axios.delete("https://secret-headland-69654.herokuapp.com/alunos/", {
-      data: { delBodyRequest },
+      data: delBodyRequest,
     });
 
     setList((oldList) => oldList.filter((item) => item.id));
