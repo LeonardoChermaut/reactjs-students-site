@@ -42,14 +42,15 @@ export const IconRefresh = styled(RestartAltIcon)`
 
 export const MyContainer = styled(Container)`
   && {
-    margin-top: 2rem;
   }
 `;
 
 export const MyTitleForm = styled.h2`
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+  font-size: 19px;
   margin-bottom: 3.5rem;
+  margin-top: 1rem;
 `;
 
 export const BoxFormStudent = styled(Box)`
@@ -61,4 +62,21 @@ export const InputStudent = styled(Input)`
   && {
     margin-right: 1rem;
   }
+`;
+
+export const ImageStudent = styled.img`
+  max-width: 400px;
+  min-width: 300px;
+  display: block;
+  margin-top: 2rem;
+  margin: 0px auto;
+`;
+
+export const MyTitleStudents = styled.p`
+  margin-top: 9rem;
+  text-align: center;
+  font-size: 21px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: #db8711;
 `;

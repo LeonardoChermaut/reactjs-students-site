@@ -9,6 +9,8 @@ import {
   MyTitleForm,
   BoxFormSubject,
   InputSubject,
+  ImageSubject,
+  MyTitleSubject,
 } from "./Styled";
 import Container from "@mui/material/Container";
 import Table from "@mui/material/Table";
@@ -70,6 +72,13 @@ const Subjects = () => {
       maxWidth="md"
       style={{ height: 400, width: "100%", marginTop: "5rem" }}
     >
+      <MyTitleSubject>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda quae
+        nulla distinctio suscipit ea ad saepe nesciunt dolores, molestias odit.
+        Enim voluptatum velit ipsa quaerat cupiditate, pariatur eveniet
+        laboriosam saepe!
+      </MyTitleSubject>
+      <ImageSubject src="https://media.istockphoto.com/vectors/woman-working-at-night-vector-id1266262293?k=20&m=1266262293&s=612x612&w=0&h=2VxmVd9l3FxFY6jRmiM8nl5fqiVqBM_LQ4M6hgHXX2Q=" />
       <ListButton className="ListButton" onClick={getAll}>
         Listar Api
         <IconForm />

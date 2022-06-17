@@ -46,9 +46,9 @@ export const MyContainer = styled(Container)`
 `;
 
 export const MyTitleForm = styled.h2`
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-  margin-bottom: 3.5rem;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 19px;
 `;
 
 export const BoxFormSubject = styled(Box)`
@@ -60,4 +60,20 @@ export const InputSubject = styled(Input)`
   && {
     margin-right: 1rem;
   }
+`;
+
+export const ImageSubject = styled.img`
+  max-width: 400px;
+  min-width: 300px;
+  display: block;
+  margin: 0px auto;
+`;
+
+export const MyTitleSubject = styled.p`
+  margin-top: 9rem;
+  text-align: center;
+  font-size: 21px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: #db8711;
 `;
