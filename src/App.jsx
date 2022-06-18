@@ -5,20 +5,21 @@ import Subjects from "./pages/Subject/Index";
 import Home from "./pages/Home/Index";
 import Navbar from "./components/Navbar/Index";
 import Footer from "./components/Footer/Index";
-import { Container } from "@mui/material";
+
+import "./index.css";
 
 function App() {
   return (
-    <Container>
+    <div className="MyDiv">
       <Navbar />
 
       <Routes>
-        <Route path="" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="alunos" element={<Students />} />
         <Route path="materias" element={<Subjects />} />
       </Routes>
       <Footer />
-    </Container>
+    </div>
   );
 }
 

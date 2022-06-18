@@ -42,6 +42,17 @@ export const IconRefresh = styled(RestartAltIcon)`
 
 export const MyContainer = styled(Container)`
   && {
+    margin-top: 7rem;
+    margin-bottom: 6rem;
+    padding: 0;
+  }
+`;
+
+export const MyContainerSub = styled(Container)`
+  && {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    padding: 0;
   }
 `;
 
@@ -55,6 +66,7 @@ export const MyTitleForm = styled.h2`
 
 export const BoxFormStudent = styled(Box)`
   && {
+    margin-top: 3rem;
   }
 `;
 
@@ -73,7 +85,7 @@ export const ImageStudent = styled.img`
 `;
 
 export const MyTitleStudents = styled.p`
-  margin-top: 9rem;
+  margin-top: 6rem;
   text-align: center;
   font-size: 21px;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",

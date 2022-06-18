@@ -1,0 +1,15 @@
+body{
+  margin: 0;
+  
+}
+
+.MyDiv{
+  align-items: center;
+
+}
+
+#menu-appbar{
+  margin: 0;
+  padding: 0;
+  display: flex;
+}

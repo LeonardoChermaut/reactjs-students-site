@@ -29,7 +29,8 @@ export const ListButton = styled(Button)`
 
 export const IconForm = styled(FormatListBulletedIcon)`
   && {
-    margin-left: 8px;
+    margin-top: 1rem;
+    margin-bottom: -0.4rem;
   }
 `;
 
@@ -41,7 +42,17 @@ export const IconRefresh = styled(RestartAltIcon)`
 
 export const MyContainer = styled(Container)`
   && {
-    margin-top: 2rem;
+    margin-top: 7rem;
+    margin-bottom: 5rem;
+    padding: 0;
+  }
+`;
+
+export const MyContainerSub = styled(Container)`
+  && {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    padding: 0;
   }
 `;
 
@@ -53,12 +64,14 @@ export const MyTitleForm = styled.h2`
 
 export const BoxFormSubject = styled(Box)`
   && {
+    margin-top: 3rem;
   }
 `;
 
 export const InputSubject = styled(Input)`
   && {
-    margin-right: 1rem;
+    margin-top: 2rem;
+    margin-right: 2rem;
   }
 `;
 
@@ -70,7 +83,7 @@ export const ImageSubject = styled.img`
 `;
 
 export const MyTitleSubject = styled.p`
-  margin-top: 9rem;
+  margin-top: 3rem;
   text-align: center;
   font-size: 21px;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
