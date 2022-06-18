@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { MyNavbar } from "./Styled";
+import Switch from "../Switch/index";
 
 const pages = ["Matérias", "Alunos", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -141,6 +142,7 @@ const Navbar = () => {
               Blog
             </Button>
           </Box>
+          <Switch />
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
