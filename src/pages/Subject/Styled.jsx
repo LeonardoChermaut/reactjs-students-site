@@ -3,13 +3,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 
 export const MyDeleteIcon = styled(DeleteIcon)`
   && {
-    margin-left: 1.4rem;
+    color: orange;
   }
 `;
 
@@ -31,12 +32,6 @@ export const IconForm = styled(FormatListBulletedIcon)`
   && {
     margin-top: 1rem;
     margin-bottom: -0.4rem;
-  }
-`;
-
-export const IconRefresh = styled(RestartAltIcon)`
-  && {
-    margin-left: 5px;
   }
 `;
 
@@ -89,4 +84,12 @@ export const MyTitleSubject = styled.p`
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: #db8711;
+`;
+
+export const IconRefresh = styled(RestartAltIcon)`
+  && {
+    margin-left: 5px;
+    color: orange;
+    font-family: bold;
+  }
 `;

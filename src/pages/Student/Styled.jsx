@@ -10,7 +10,7 @@ import Input from "@mui/material/Input";
 
 export const MyDeleteIcon = styled(DeleteIcon)`
   && {
-    margin-left: 1.4rem;
+    color: orange;
   }
 `;
 
@@ -37,6 +37,7 @@ export const IconForm = styled(FormatListBulletedIcon)`
 export const IconRefresh = styled(RestartAltIcon)`
   && {
     margin-left: 5px;
+    color: orange;
   }
 `;
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
@@ -9,7 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { MyDeleteIcon } from "./Styled";
+import { IconRefresh, MyDeleteIcon, MyTitleTable } from "./Styled";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -27,6 +27,7 @@ import {
   MyTitleSubject,
   MyContainerSub,
 } from "./Styled";
+import { getSubject } from "../../service/Index";
 const ariaLabel = { "aria-label": "description" };
 
 const Subjects = () => {
@@ -34,6 +35,12 @@ const Subjects = () => {
   const [professor_nome, setProfessor_Nome] = useState("");
   const [titulo, setTitulo] = useState("");
   const [resposta, setResposta] = useState(null);
+
+  // useEffect(() => {
+  //   // setResponsta(getSubject)
+  //   const response = getSubject();
+  //   console.log(response);
+  // });
 
   const getAll = () => {
     axios
@@ -80,14 +87,20 @@ const Subjects = () => {
       titulo,
       professor_nome,
     };
-    await axios.delete(
-      "https://secret-headland-69654.herokuapp.com/materias/",
-      { data: delBodyRequest }
-    );
+    await axios
+      .delete("https://secret-headland-69654.herokuapp.com/materias/", {
+        data: delBodyRequest,
+      })
+      .then((response) => {
+        setResposta(response);
+      });
 
     setList((oldList) => oldList.filter((item) => item.id));
   };
 
+  function refreshPage() {
+    window.location.reload();
+  }
   return (
     <MyContainer>
       <MyTitleSubject>
@@ -110,6 +123,15 @@ const Subjects = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
+          <MyTitleForm
+            style={{
+              textAlign: "center",
+              marginTop: "-1rem",
+              marginBottom: "2rem",
+            }}
+          >
+            Tabela de matérias
+          </MyTitleForm>
           <Typography>
             <MyContainerSub>
               <TableContainer component={Paper}>
@@ -120,15 +142,20 @@ const Subjects = () => {
                 >
                   <TableHead>
                     <TableRow>
-                      <TableCell>ID</TableCell>
+                      <TableCell>
+                        <strong>ID</strong>
+                      </TableCell>
                       <TableCell align="center">
-                        <strong>Título</strong>
+                        <strong>Matéria</strong>
                       </TableCell>
                       <TableCell align="center">
                         <strong>Nome do professor</strong>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>Excluir Matéria</strong>
+                        <strong>Editar</strong>
+                      </TableCell>
+                      <TableCell align="center">
+                        <strong>Excluir</strong>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -143,6 +170,7 @@ const Subjects = () => {
                           {itens.professor_nome}
                         </TableCell>
                         <TableCell align="center">
+                          {/* VERIFICAR UPDATE */}
                           <Button
                             onClick={() => (
                               <BoxFormSubject
@@ -176,14 +204,14 @@ const Subjects = () => {
                                   onClick={() => updateUser(itens.id)}
                                   type="Submit"
                                   variant="contained"
-                                  endIcon={<SendIcon />}
+                                  endIcon={<SendIcon color="waring" />}
                                 >
-                                  Enviar
+                                  Atualizar
                                 </Button>
                               </BoxFormSubject>
                             )}
                           >
-                            <EditIcon />
+                            <EditIcon style={{ color: "orange" }} />
                           </Button>
                         </TableCell>
                         <TableCell align="center">
@@ -195,6 +223,22 @@ const Subjects = () => {
                     ))}
                   </TableBody>
                 </Table>
+                {resposta && resposta.data.message && (
+                  <MyTitleSubject
+                    style={{
+                      textAlign: "center",
+                      fontSize: "15px",
+                      color: "#000",
+                      marginLeft: "3rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {resposta.data.message}
+                    <Button onClick={refreshPage}>
+                      <IconRefresh />
+                    </Button>
+                  </MyTitleSubject>
+                )}
               </TableContainer>
             </MyContainerSub>
           </Typography>
@@ -213,8 +257,13 @@ const Subjects = () => {
           value={professor_nome}
           onChange={(e) => setProfessor_Nome(e.target.value)}
         />
-        {resposta && resposta.data.message && <h4>{resposta.data.message}</h4>}
-        <Button type="Submit" variant="contained" endIcon={<SendIcon />}>
+
+        <Button
+          style={{ backgroundColor: "orange" }}
+          type="Submit"
+          variant="contained"
+          endIcon={<SendIcon />}
+        >
           Enviar
         </Button>
       </BoxFormSubject>

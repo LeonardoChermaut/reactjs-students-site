@@ -27,6 +27,8 @@ import {
   ImageStudent,
   MyContainer,
   MyContainerSub,
+  MyTitleTable,
+  IconRefresh,
 } from "../Student/Styled";
 const ariaLabel = { "aria-label": "description" };
 
@@ -37,6 +39,9 @@ const Students = () => {
   const [idade, setIdade] = useState("");
   const [resposta, setResposta] = useState(null);
 
+  function refreshPage() {
+    window.location.reload();
+  }
   const getAll = () => {
     axios
       .get("https://secret-headland-69654.herokuapp.com/alunos/")
@@ -116,6 +121,9 @@ const Students = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
+          <MyTitleForm style={{ textAlign: "center" }}>
+            Tabela de alunos
+          </MyTitleForm>
           <Typography>
             <MyContainerSub>
               <TableContainer component={Paper}>
@@ -194,6 +202,7 @@ const Students = () => {
                                   <h4>{resposta.data.message}</h4>
                                 )}
                                 <Button
+                                  style={{ backgroundColor: " orange " }}
                                   onClick={() => updateUser(itens.id)}
                                   type="Submit"
                                   variant="contained"
@@ -204,7 +213,7 @@ const Students = () => {
                               </BoxFormStudent>
                             )}
                           >
-                            <EditIcon />
+                            <EditIcon style={{ color: "orange" }} />
                           </Button>
                         </TableCell>
                         <TableCell align="center">
@@ -216,6 +225,20 @@ const Students = () => {
                     ))}
                   </TableBody>
                 </Table>
+                {resposta && resposta.data.message && (
+                  <MyTitleTable
+                    style={{
+                      textAlign: "center",
+                      fontSize: "15px",
+                      color: "#000",
+                    }}
+                  >
+                    {resposta.data.message}
+                    <Button onClick={refreshPage}>
+                      <IconRefresh />
+                    </Button>
+                  </MyTitleTable>
+                )}
               </TableContainer>
             </MyContainerSub>
           </Typography>
@@ -250,8 +273,14 @@ const Students = () => {
           value={idade}
           onChange={(e) => setIdade(e.target.value)}
         />
-        {resposta && resposta.data.message && <h4>{resposta.data.message}</h4>}
-        <Button type="Submit" variant="contained" endIcon={<SendIcon />}>
+
+        <Button
+          style={{ backgroundColor: "orange" }}
+          type="Submit"
+          variant="contained"
+          endIcon={<SendIcon />}
+          onClick={refreshPage}
+        >
           Enviar
         </Button>
       </BoxFormStudent>
