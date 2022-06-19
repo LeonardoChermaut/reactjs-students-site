@@ -2,17 +2,6 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
-import {
-  IconForm,
-  ListButton,
-  MyContainer,
-  MyTitleForm,
-  BoxFormSubject,
-  InputSubject,
-  ImageSubject,
-  MyTitleSubject,
-  MyContainerSub,
-} from "./Styled";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -26,6 +15,19 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import EditIcon from "@mui/icons-material/Edit";
+import {
+  IconForm,
+  ListButton,
+  MyContainer,
+  MyTitleForm,
+  BoxFormSubject,
+  InputSubject,
+  ImageSubject,
+  MyTitleSubject,
+  MyContainerSub,
+} from "./Styled";
+const ariaLabel = { "aria-label": "description" };
 
 const Subjects = () => {
   const [list, setList] = useState([]);
@@ -38,6 +40,21 @@ const Subjects = () => {
       .get("https://secret-headland-69654.herokuapp.com/materias/")
       .then((response) => {
         setList(response.data);
+      });
+  };
+  const updateUser = async (id) => {
+    const putBodyRequest = {
+      id,
+      titulo,
+      professor_nome,
+    };
+    await axios
+      .put("https://secret-headland-69654.herokuapp.com/alunos/", {
+        data: putBodyRequest,
+      })
+      .then((response) => {
+        setResposta(response);
+        setList((oldList) => oldList.filter((item) => item.id));
       });
   };
 
@@ -124,6 +141,50 @@ const Subjects = () => {
                         <TableCell align="center">{itens.titulo}</TableCell>
                         <TableCell align="center">
                           {itens.professor_nome}
+                        </TableCell>
+                        <TableCell align="center">
+                          <Button
+                            onClick={() => (
+                              <BoxFormSubject
+                                component="form"
+                                onSubmit={updateUser}
+                                sx={{
+                                  marginTop: 10,
+                                }}
+                                noValidate
+                                autoComplete="off"
+                              >
+                                <InputSubject
+                                  placeholder="Titulo"
+                                  inputProps={ariaLabel}
+                                  value={titulo}
+                                  onChange={(e) => setTitulo(e.target.value)}
+                                />
+                                <InputSubject
+                                  placeholder="Nome do professor"
+                                  inputProps={ariaLabel}
+                                  value={professor_nome}
+                                  onChange={(e) =>
+                                    setProfessor_Nome(e.target.value)
+                                  }
+                                />
+
+                                {resposta && resposta.data.message && (
+                                  <h4>{resposta.data.message}</h4>
+                                )}
+                                <Button
+                                  onClick={() => updateUser(itens.id)}
+                                  type="Submit"
+                                  variant="contained"
+                                  endIcon={<SendIcon />}
+                                >
+                                  Enviar
+                                </Button>
+                              </BoxFormSubject>
+                            )}
+                          >
+                            <EditIcon />
+                          </Button>
                         </TableCell>
                         <TableCell align="center">
                           <Button onClick={() => deletUser(itens.id)}>

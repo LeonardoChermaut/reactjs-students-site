@@ -2,18 +2,6 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
-import {
-  IconForm,
-  ListButton,
-  MyTitleForm,
-  MyTitleStudents,
-  MyDeleteIcon,
-  BoxFormStudent,
-  InputStudent,
-  ImageStudent,
-  MyContainer,
-  MyContainerSub,
-} from "../Student/Styled";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -27,7 +15,19 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
+import EditIcon from "@mui/icons-material/Edit";
+import {
+  IconForm,
+  ListButton,
+  MyTitleForm,
+  MyTitleStudents,
+  MyDeleteIcon,
+  BoxFormStudent,
+  InputStudent,
+  ImageStudent,
+  MyContainer,
+  MyContainerSub,
+} from "../Student/Styled";
 const ariaLabel = { "aria-label": "description" };
 
 const Students = () => {
@@ -62,7 +62,7 @@ const Students = () => {
       });
   };
 
-  const deletUser = async (id) => {
+  const deleteUser = async (id) => {
     const delBodyRequest = {
       id,
       nome,
@@ -72,6 +72,23 @@ const Students = () => {
     await axios
       .delete("https://secret-headland-69654.herokuapp.com/alunos/", {
         data: delBodyRequest,
+      })
+      .then((response) => {
+        setResposta(response);
+        setList((oldList) => oldList.filter((item) => item.id));
+      });
+  };
+
+  const updateUser = async (id) => {
+    const putBodyRequest = {
+      id,
+      nome,
+      cidade,
+      idade,
+    };
+    await axios
+      .put("https://secret-headland-69654.herokuapp.com/alunos/", {
+        data: putBodyRequest,
       })
       .then((response) => {
         setResposta(response);
@@ -109,7 +126,9 @@ const Students = () => {
                 >
                   <TableHead>
                     <TableRow>
-                      <TableCell>ID</TableCell>
+                      <TableCell>
+                        <strong>ID</strong>
+                      </TableCell>
                       <TableCell align="center">
                         <strong>Nome</strong>
                       </TableCell>
@@ -120,7 +139,10 @@ const Students = () => {
                         <strong>Idade</strong>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>Excluir Matéria</strong>
+                        <strong>Editar</strong>
+                      </TableCell>
+                      <TableCell align="center">
+                        <strong>Excluir</strong>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -134,7 +156,59 @@ const Students = () => {
                         <TableCell align="center">{itens.cidade}</TableCell>
                         <TableCell align="center">{itens.idade}</TableCell>
                         <TableCell align="center">
-                          <Button onClick={() => deletUser(itens.id)}>
+                          <Button
+                            onClick={() => (
+                              <BoxFormStudent
+                                component="form"
+                                onSubmit={updateUser}
+                                sx={{
+                                  marginTop: 10,
+                                }}
+                                noValidate
+                                autoComplete="off"
+                              >
+                                <MyTitleForm>
+                                  Adicionar novos alunos
+                                </MyTitleForm>
+
+                                <InputStudent
+                                  placeholder="Nome"
+                                  inputProps={ariaLabel}
+                                  value={nome}
+                                  onChange={(e) => setNome(e.target.value)}
+                                />
+                                <InputStudent
+                                  placeholder="Cidade"
+                                  inputProps={ariaLabel}
+                                  value={cidade}
+                                  onChange={(e) => setCidade(e.target.value)}
+                                />
+                                <InputStudent
+                                  placeholder="Idade"
+                                  inputProps={ariaLabel}
+                                  value={idade}
+                                  onChange={(e) => setIdade(e.target.value)}
+                                />
+
+                                {resposta && resposta.data.message && (
+                                  <h4>{resposta.data.message}</h4>
+                                )}
+                                <Button
+                                  onClick={() => updateUser(itens.id)}
+                                  type="Submit"
+                                  variant="contained"
+                                  endIcon={<SendIcon />}
+                                >
+                                  Enviar
+                                </Button>
+                              </BoxFormStudent>
+                            )}
+                          >
+                            <EditIcon />
+                          </Button>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Button onClick={() => deleteUser(itens.id)}>
                             <MyDeleteIcon />
                           </Button>
                         </TableCell>
