@@ -69,11 +69,14 @@ const Students = () => {
       cidade,
       idade,
     };
-    await axios.delete("https://secret-headland-69654.herokuapp.com/alunos/", {
-      data: delBodyRequest,
-    });
-
-    setList((oldList) => oldList.filter((item) => item.id));
+    await axios
+      .delete("https://secret-headland-69654.herokuapp.com/alunos/", {
+        data: delBodyRequest,
+      })
+      .then((response) => {
+        setResposta(response);
+        setList((oldList) => oldList.filter((item) => item.id));
+      });
   };
 
   return (

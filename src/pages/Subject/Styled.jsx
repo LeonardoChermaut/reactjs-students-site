@@ -43,8 +43,8 @@ export const IconRefresh = styled(RestartAltIcon)`
 export const MyContainer = styled(Container)`
   && {
     margin-top: 7rem;
-    margin-bottom: 5rem;
-    padding: 0;
+    margin-bottom: 7rem;
+    padding: 2rem;
   }
 `;
 

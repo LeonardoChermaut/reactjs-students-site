@@ -11,8 +11,11 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/index";
 import { MyNavbar } from "./Styled";
 import Switch from "../Switch/index";
+import { Link } from "react-router-dom";
 
 const pages = ["Matérias", "Alunos", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -20,6 +23,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { themeSelected, setThemeSelected } = useContext(ThemeContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +39,13 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const changeTheme = () => {
+    if (themeSelected === "light") {
+      setThemeSelected("dark");
+    } else {
+      setThemeSelected("light");
+    }
+  };
 
   return (
     <MyNavbar>
@@ -43,23 +54,25 @@ const Navbar = () => {
           <LocalLibraryIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
           />
-          <Typography
-            href="http://localhost:3000/"
-            variant="h6"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LEARNS
-          </Typography>
+
+          <Link to="/" style={{ textDecoration: "none", color: "#fff" }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              LEARNS
+            </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -120,20 +133,22 @@ const Navbar = () => {
             LEARNING
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              href="http://localhost:3000/materias"
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Matérias
-            </Button>
-            <Button
-              href="http://localhost:3000/alunos"
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Alunos
-            </Button>
+            <Link to="/materias" style={{ textDecoration: "none" }}>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Matérias
+              </Button>
+            </Link>
+            <Link to="/alunos" style={{ textDecoration: "none" }}>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Alunos
+              </Button>
+            </Link>
             <Button
               href="http://serratec.org/"
               onClick={handleCloseNavMenu}
@@ -142,7 +157,7 @@ const Navbar = () => {
               Blog
             </Button>
           </Box>
-          <Switch />
+          <Switch onClick={changeTheme} />
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
