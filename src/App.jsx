@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/Index";
 import Footer from "./components/Footer/Index";
 import "./index.css";
 import { MyThemeProvider } from "./context";
+import NotFound from "./pages/NotFound/Index";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="alunos" element={<Students />} />
           <Route path="materias" element={<Subjects />} />
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
       </div>
