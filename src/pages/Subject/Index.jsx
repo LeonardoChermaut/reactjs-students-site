@@ -27,7 +27,7 @@ import {
   MyTitleSubject,
   MyContainerSub,
 } from "./Styled";
-import { getSubject } from "../../service/Index";
+
 const ariaLabel = { "aria-label": "description" };
 
 const Subjects = () => {
@@ -35,12 +35,7 @@ const Subjects = () => {
   const [professor_nome, setProfessor_Nome] = useState("");
   const [titulo, setTitulo] = useState("");
   const [resposta, setResposta] = useState(null);
-
-  // useEffect(() => {
-  //   // setResponsta(getSubject)
-  //   const response = getSubject();
-  //   console.log(response);
-  // });
+  const [edit, setEdit] = useState(null);
 
   const getAll = () => {
     axios
@@ -49,6 +44,7 @@ const Subjects = () => {
         setList(response.data);
       });
   };
+
   const updateUser = async (id) => {
     const putBodyRequest = {
       id,
@@ -61,7 +57,10 @@ const Subjects = () => {
       })
       .then((response) => {
         setResposta(response);
-        setList((oldList) => oldList.filter((item) => item.id));
+        console.log(response);
+        setList((oldList) =>
+          oldList.map((item) => (item.id === id ? response : item))
+        );
       });
   };
 
@@ -110,7 +109,6 @@ const Subjects = () => {
         laboriosam saepe!
       </MyTitleSubject>
       <ImageSubject src="https://media.istockphoto.com/vectors/woman-working-at-night-vector-id1266262293?k=20&m=1266262293&s=612x612&w=0&h=2VxmVd9l3FxFY6jRmiM8nl5fqiVqBM_LQ4M6hgHXX2Q=" />
-
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -171,46 +169,7 @@ const Subjects = () => {
                         </TableCell>
                         <TableCell align="center">
                           {/* VERIFICAR UPDATE */}
-                          <Button
-                            onClick={() => (
-                              <BoxFormSubject
-                                component="form"
-                                onSubmit={updateUser}
-                                sx={{
-                                  marginTop: 10,
-                                }}
-                                noValidate
-                                autoComplete="off"
-                              >
-                                <InputSubject
-                                  placeholder="Titulo"
-                                  inputProps={ariaLabel}
-                                  value={titulo}
-                                  onChange={(e) => setTitulo(e.target.value)}
-                                />
-                                <InputSubject
-                                  placeholder="Nome do professor"
-                                  inputProps={ariaLabel}
-                                  value={professor_nome}
-                                  onChange={(e) =>
-                                    setProfessor_Nome(e.target.value)
-                                  }
-                                />
-
-                                {resposta && resposta.data.message && (
-                                  <h4>{resposta.data.message}</h4>
-                                )}
-                                <Button
-                                  onClick={() => updateUser(itens.id)}
-                                  type="Submit"
-                                  variant="contained"
-                                  endIcon={<SendIcon color="waring" />}
-                                >
-                                  Atualizar
-                                </Button>
-                              </BoxFormSubject>
-                            )}
-                          >
+                          <Button>
                             <EditIcon style={{ color: "orange" }} />
                           </Button>
                         </TableCell>

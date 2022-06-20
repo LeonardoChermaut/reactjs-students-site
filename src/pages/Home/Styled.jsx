@@ -22,7 +22,6 @@ export const MyTitleHome = styled.p`
   margin-top: 9rem;
   text-align: center;
   font-size: 21px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  color: #db8711;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #a5660c;
 `;

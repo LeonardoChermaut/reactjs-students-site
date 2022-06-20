@@ -30,18 +30,25 @@ import {
   MyTitleTable,
   IconRefresh,
 } from "../Student/Styled";
+import Form from "../../components/Form/Index";
 const ariaLabel = { "aria-label": "description" };
 
 const Students = () => {
   const [list, setList] = useState([]);
   const [nome, setNome] = useState("");
-  const [cidade, setCidade] = useState("");
   const [idade, setIdade] = useState("");
+  const [cidade, setCidade] = useState("");
   const [resposta, setResposta] = useState(null);
+  const [exibirForm, setExibirForm] = useState(null);
 
   function refreshPage() {
     window.location.reload();
   }
+
+  const handleEdit = (item) => {
+    setExibirForm(item);
+  };
+
   const getAll = () => {
     axios
       .get("https://secret-headland-69654.herokuapp.com/alunos/")
@@ -84,12 +91,12 @@ const Students = () => {
       });
   };
 
-  const updateUser = async (id) => {
+  const updateUser = async (item) => {
     const putBodyRequest = {
-      id,
-      nome,
-      cidade,
-      idade,
+      id: exibirForm.id,
+      nome: item.nome,
+      cidade: item.cidade,
+      idade: item.idade,
     };
     await axios
       .put("https://secret-headland-69654.herokuapp.com/alunos/", {
@@ -97,7 +104,10 @@ const Students = () => {
       })
       .then((response) => {
         setResposta(response);
-        setList((oldList) => oldList.filter((item) => item.id));
+        console.log(response);
+        setList((oldList) =>
+          oldList.map((item) => (item.id === exibirForm.id ? response : item))
+        );
       });
   };
 
@@ -155,69 +165,21 @@ const Students = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {list.map((itens) => (
+                    {list.map((item) => (
                       <TableRow>
                         <TableCell component="th" scope="row">
-                          {itens.id}
+                          {item.id}
                         </TableCell>
-                        <TableCell align="center">{itens.nome}</TableCell>
-                        <TableCell align="center">{itens.cidade}</TableCell>
-                        <TableCell align="center">{itens.idade}</TableCell>
+                        <TableCell align="center">{item.nome}</TableCell>
+                        <TableCell align="center">{item.cidade}</TableCell>
+                        <TableCell align="center">{item.idade}</TableCell>
                         <TableCell align="center">
-                          <Button
-                            onClick={() => (
-                              <BoxFormStudent
-                                component="form"
-                                onSubmit={updateUser}
-                                sx={{
-                                  marginTop: 10,
-                                }}
-                                noValidate
-                                autoComplete="off"
-                              >
-                                <MyTitleForm>
-                                  Adicionar novos alunos
-                                </MyTitleForm>
-
-                                <InputStudent
-                                  placeholder="Nome"
-                                  inputProps={ariaLabel}
-                                  value={nome}
-                                  onChange={(e) => setNome(e.target.value)}
-                                />
-                                <InputStudent
-                                  placeholder="Cidade"
-                                  inputProps={ariaLabel}
-                                  value={cidade}
-                                  onChange={(e) => setCidade(e.target.value)}
-                                />
-                                <InputStudent
-                                  placeholder="Idade"
-                                  inputProps={ariaLabel}
-                                  value={idade}
-                                  onChange={(e) => setIdade(e.target.value)}
-                                />
-
-                                {resposta && resposta.data.message && (
-                                  <h4>{resposta.data.message}</h4>
-                                )}
-                                <Button
-                                  style={{ backgroundColor: " orange " }}
-                                  onClick={() => updateUser(itens.id)}
-                                  type="Submit"
-                                  variant="contained"
-                                  endIcon={<SendIcon />}
-                                >
-                                  Enviar
-                                </Button>
-                              </BoxFormStudent>
-                            )}
-                          >
+                          <Button onClick={() => setExibirForm(item)}>
                             <EditIcon style={{ color: "orange" }} />
                           </Button>
                         </TableCell>
                         <TableCell align="center">
-                          <Button onClick={() => deleteUser(itens.id)}>
+                          <Button onClick={() => deleteUser(item.id)}>
                             <MyDeleteIcon />
                           </Button>
                         </TableCell>
@@ -241,6 +203,14 @@ const Students = () => {
                 )}
               </TableContainer>
             </MyContainerSub>
+            {exibirForm && (
+              <Form
+                nome={exibirForm.nome}
+                cidade={exibirForm.cidade}
+                idade={exibirForm.idade}
+                putUser={updateUser}
+              />
+            )}
           </Typography>
         </AccordionDetails>
       </Accordion>
