@@ -1,6 +1,7 @@
 import React from "react";
-import { Input, Box, Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import { MyInput } from "./Styled";
 const ariaLabel = { "aria-label": "description" };
 
 const Form = (props) => {
@@ -22,21 +23,19 @@ const Form = (props) => {
       noValidate
       autoComplete="off"
     >
-      <h4></h4>
-
-      <Input
+      <MyInput
         placeholder="Nome"
         inputProps={ariaLabel}
         value={nome}
         onChange={({ target }) => setNome(target.value)}
       />
-      <Input
+      <MyInput
         placeholder="Cidade"
         inputProps={ariaLabel}
         value={cidade}
         onChange={({ target }) => setCidade(target.value)}
       />
-      <Input
+      <MyInput
         placeholder="Idade"
         inputProps={ariaLabel}
         value={idade}
