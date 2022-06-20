@@ -5,5 +5,7 @@ export const MyInput = styled(Input)`
   && {
     margin-top: -2rem;
     margin-right: 2rem;
+    align-items: center;
+    text-align: center;
   }
 `;

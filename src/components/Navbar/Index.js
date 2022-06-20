@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/index";
-import { MyNavbar } from "./Styled";
+import { MyButtonNav, MyNavbar, MyTypography } from "./Styled";
 import Switch from "../Switch/index";
 import { Link } from "react-router-dom";
 
@@ -105,7 +105,7 @@ const Navbar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <MyTypography textAlign="center">{page}</MyTypography>
                 </MenuItem>
               ))}
             </Menu>
@@ -114,7 +114,7 @@ const Navbar = () => {
           <LocalLibraryIcon
             sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
           />
-          <Typography
+          <MyTypography
             variant="h5"
             noWrap
             component="a"
@@ -131,31 +131,31 @@ const Navbar = () => {
             }}
           >
             LEARNING
-          </Typography>
+          </MyTypography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Link to="/materias" style={{ textDecoration: "none" }}>
-              <Button
+              <MyButtonNav
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 Matérias
-              </Button>
+              </MyButtonNav>
             </Link>
             <Link to="/alunos" style={{ textDecoration: "none" }}>
-              <Button
+              <MyButtonNav
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 Alunos
-              </Button>
+              </MyButtonNav>
             </Link>
-            <Button
+            <MyButtonNav
               href="http://serratec.org/"
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
               Blog
-            </Button>
+            </MyButtonNav>
           </Box>
           <Switch onClick={changeTheme} />
 
