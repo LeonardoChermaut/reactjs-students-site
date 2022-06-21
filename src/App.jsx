@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 import Students from "./pages/Student/index";
 import Subjects from "./pages/Subject/Index";

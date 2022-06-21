@@ -2,21 +2,23 @@ import React from "react";
 import { Box, Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { MyInput } from "./Styled";
+
 const ariaLabel = { "aria-label": "description" };
 
 const Form = (props) => {
+  //Essa informações devem vir do estado compartilhado
   const [nome, setNome] = React.useState(props.nome);
   const [cidade, setCidade] = React.useState(props.cidade);
   const [idade, setIdade] = React.useState(props.idade);
-  const enviar = (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    props.putUser({ nome, cidade, idade });
+    props.putStudent({ nome, cidade, idade, id:props.id });
   };
 
   return (
     <Box
       component="form"
-      onSubmit={enviar}
+      onSubmit={submit}
       sx={{
         marginTop: 10,
       }}
@@ -24,19 +26,19 @@ const Form = (props) => {
       autoComplete="off"
     >
       <MyInput
-        placeholder="Nome"
+        placeholder="Name"
         inputProps={ariaLabel}
         value={nome}
         onChange={({ target }) => setNome(target.value)}
       />
       <MyInput
-        placeholder="Cidade"
+        placeholder="City"
         inputProps={ariaLabel}
         value={cidade}
         onChange={({ target }) => setCidade(target.value)}
       />
       <MyInput
-        placeholder="Idade"
+        placeholder="Age"
         inputProps={ariaLabel}
         value={idade}
         onChange={({ target }) => setIdade(target.value)}
@@ -48,7 +50,7 @@ const Form = (props) => {
         variant="contained"
         endIcon={<SendIcon />}
       >
-        Enviar
+        Update
       </Button>
     </Box>
   );

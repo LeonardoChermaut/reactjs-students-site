@@ -1,12 +1,17 @@
 import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Button } from "@mui/material";
+import { Button, Input } from "@mui/material";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { Container } from "@mui/material";
-
 import Box from "@mui/material/Box";
-import Input from "@mui/material/Input";
+
+export const MyInput = styled(Input)`
+  && {
+    margin-top: -2rem;
+    margin-right: 2rem;
+  }
+`;
 
 export const MyDeleteIcon = styled(DeleteIcon)`
   && {
@@ -31,6 +36,7 @@ export const ListButton = styled(Button)`
 export const IconForm = styled(FormatListBulletedIcon)`
   && {
     margin-left: 8px;
+    margin-bottom: -0.4rem;
   }
 `;
 

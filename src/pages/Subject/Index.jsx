@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
@@ -9,7 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IconRefresh, MyDeleteIcon, MyTitleTable } from "./Styled";
+import { IconRefresh, MyDeleteIcon } from "./Styled";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -18,7 +18,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
 import {
   IconForm,
-  ListButton,
   MyContainer,
   MyTitleForm,
   BoxFormSubject,
@@ -27,15 +26,14 @@ import {
   MyTitleSubject,
   MyContainerSub,
 } from "./Styled";
-
-const ariaLabel = { "aria-label": "description" };
+import Form from "./Edit";
 
 const Subjects = () => {
   const [list, setList] = useState([]);
   const [professor_nome, setProfessor_Nome] = useState("");
   const [titulo, setTitulo] = useState("");
   const [resposta, setResposta] = useState(null);
-  const [edit, setEdit] = useState(null);
+  const [displayForm, setDisplayForm] = useState(null);
 
   const getAll = () => {
     axios
@@ -45,26 +43,7 @@ const Subjects = () => {
       });
   };
 
-  const updateUser = async (id) => {
-    const putBodyRequest = {
-      id,
-      titulo,
-      professor_nome,
-    };
-    await axios
-      .put("https://secret-headland-69654.herokuapp.com/alunos/", {
-        data: putBodyRequest,
-      })
-      .then((response) => {
-        setResposta(response);
-        console.log(response);
-        setList((oldList) =>
-          oldList.map((item) => (item.id === id ? response : item))
-        );
-      });
-  };
-
-  const postUser = (e) => {
+  const postSubject = (e) => {
     e.preventDefault();
     const postBodyRequest = {
       titulo,
@@ -80,7 +59,7 @@ const Subjects = () => {
       });
   };
 
-  const deletUser = async (id) => {
+  const deleteSubject = async (id) => {
     const delBodyRequest = {
       id,
       titulo,
@@ -97,9 +76,30 @@ const Subjects = () => {
     setList((oldList) => oldList.filter((item) => item.id));
   };
 
+  const updateSubject = async (item) => {
+    const putBodyRequest = {
+      id: displayForm.id,
+      titulo: item.titulo,
+      professor_nome: item.professor_nome,
+    };
+    await axios
+      .put(
+        "https://secret-headland-69654.herokuapp.com/materias/",
+        putBodyRequest
+      )
+      .then((response) => {
+        setResposta(response);
+        console.log(response);
+        setList((oldList) =>
+          oldList.map((item) => (item.id === displayForm.id ? response : item))
+        );
+      });
+  };
+
   function refreshPage() {
     window.location.reload();
   }
+
   return (
     <MyContainer>
       <MyTitleSubject>
@@ -117,7 +117,7 @@ const Subjects = () => {
           onClick={getAll}
         >
           <Typography>
-            Listar Api <IconForm />
+            Subjects <IconForm />
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -128,7 +128,7 @@ const Subjects = () => {
               marginBottom: "2rem",
             }}
           >
-            Tabela de matérias
+            Subject table
           </MyTitleForm>
           <Typography>
             <MyContainerSub>
@@ -144,37 +144,36 @@ const Subjects = () => {
                         <strong>ID</strong>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>Matéria</strong>
+                        <strong>Subject</strong>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>Nome do professor</strong>
+                        <strong>Teacher's name</strong>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>Editar</strong>
+                        <strong>Edit</strong>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>Excluir</strong>
+                        <strong>Delete</strong>
                       </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {list.map((itens) => (
+                    {list.map((item) => (
                       <TableRow>
                         <TableCell component="th" scope="row">
-                          {itens.id}
+                          {item.id}
                         </TableCell>
-                        <TableCell align="center">{itens.titulo}</TableCell>
+                        <TableCell align="center">{item.titulo}</TableCell>
                         <TableCell align="center">
-                          {itens.professor_nome}
+                          {item.professor_nome}
                         </TableCell>
                         <TableCell align="center">
-                          {/* VERIFICAR UPDATE */}
-                          <Button>
+                          <Button onClick={() => setDisplayForm(item)}>
                             <EditIcon style={{ color: "orange" }} />
                           </Button>
                         </TableCell>
                         <TableCell align="center">
-                          <Button onClick={() => deletUser(itens.id)}>
+                          <Button onClick={() => deleteSubject(item.id)}>
                             <MyDeleteIcon />
                           </Button>
                         </TableCell>
@@ -200,19 +199,30 @@ const Subjects = () => {
                 )}
               </TableContainer>
             </MyContainerSub>
+            {displayForm && (
+              <Form
+                titulo={displayForm.titulo}
+                professor_nome={displayForm.professor_nome}
+                putSubject={updateSubject}
+              />
+            )}
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <BoxFormSubject component="form" onSubmit={postUser} autoComplete="on">
-        <MyTitleForm>Adicionar novas matérias</MyTitleForm>
+      <BoxFormSubject 
+      component="form" 
+      onSubmit={postSubject} 
+      autoComplete="on">
+        
+        <MyTitleForm>Add new subjects</MyTitleForm>
 
         <InputSubject
-          placeholder="Titulo"
+          placeholder="Title"
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
         />
         <InputSubject
-          placeholder="Nome do professor"
+          placeholder="Teacher's name"
           value={professor_nome}
           onChange={(e) => setProfessor_Nome(e.target.value)}
         />
@@ -223,7 +233,7 @@ const Subjects = () => {
           variant="contained"
           endIcon={<SendIcon />}
         >
-          Enviar
+          Submit
         </Button>
       </BoxFormSubject>
     </MyContainer>
