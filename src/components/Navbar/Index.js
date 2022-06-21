@@ -13,6 +13,7 @@ import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/index";
 import { MyButtonNav, MyNavbar, MyTypography } from "./Styled";
+import Switch from "../Switch/index";
 import { Link } from "react-router-dom";
 
 const pages = ["Matérias", "Alunos", "Blog"];
@@ -21,15 +22,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { selectedTheme, setSelectedTheme } = useContext(ThemeContext);
-
-  const changeTheme = () => {
-    if (selectedTheme === "light") {
-      setSelectedTheme("dark")
-    } else {
-      setSelectedTheme("light")
-    }
-  }
+  const { themeSelected, setThemeSelected } = useContext(ThemeContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -37,13 +30,18 @@ const Navbar = () => {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const changeTheme = () => {
+    if (themeSelected === "light") {
+      setThemeSelected("dark");
+    } else {
+      setThemeSelected("light");
+    }
   };
 
   return (
@@ -53,7 +51,6 @@ const Navbar = () => {
           <LocalLibraryIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
           />
-
           <Link to="/" style={{ textDecoration: "none", color: "#fff" }}>
             <Typography
               variant="h6"
@@ -72,7 +69,6 @@ const Navbar = () => {
               LEARNS
             </Typography>
           </Link>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -109,7 +105,6 @@ const Navbar = () => {
               ))}
             </Menu>
           </Box>
-
           <LocalLibraryIcon
             sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
           />
@@ -137,7 +132,7 @@ const Navbar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                Matérias
+                Subject
               </MyButtonNav>
             </Link>
             <Link to="/alunos" style={{ textDecoration: "none" }}>
@@ -145,7 +140,7 @@ const Navbar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                Alunos
+                Student
               </MyButtonNav>
             </Link>
             <MyButtonNav
@@ -156,7 +151,8 @@ const Navbar = () => {
               Blog
             </MyButtonNav>
           </Box>
-          <MyButtonNav onClick={changeTheme} />
+          <Switch onClick={changeTheme} />
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

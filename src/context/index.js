@@ -2,10 +2,10 @@ import React, { createContext, useState } from "react";
 
 export const ThemeContext = createContext();
 export const MyThemeProvider = ({ children }) => {
-  const [selectedTheme, setSelectedTheme] = useState("");
+  const [themeSelected, setThemeSelected] = useState("light");
 
   return (
-    <ThemeContext.Provider value={{ selectedTheme, setSelectedTheme }}>
+    <ThemeContext.Provider value={{ themeSelected, setThemeSelected }}>
       {children}
     </ThemeContext.Provider>
   );
