@@ -7,14 +7,12 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/index";
 import { MyButtonNav, MyNavbar, MyTypography } from "./Styled";
-import Switch from "../Switch/index";
 import { Link } from "react-router-dom";
 
 const pages = ["Matérias", "Alunos", "Blog"];
@@ -23,7 +21,15 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { themeSelected, setThemeSelected } = useContext(ThemeContext);
+  const { selectedTheme, setSelectedTheme } = useContext(ThemeContext);
+
+  const changeTheme = () => {
+    if (selectedTheme === "light") {
+      setSelectedTheme("dark")
+    } else {
+      setSelectedTheme("light")
+    }
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,13 +44,6 @@ const Navbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-  const changeTheme = () => {
-    if (themeSelected === "light") {
-      setThemeSelected("dark");
-    } else {
-      setThemeSelected("light");
-    }
   };
 
   return (
@@ -157,8 +156,7 @@ const Navbar = () => {
               Blog
             </MyButtonNav>
           </Box>
-          <Switch onClick={changeTheme} />
-
+          <MyButtonNav onClick={changeTheme} />
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
