@@ -2,17 +2,27 @@ import React from "react";
 import { Box, Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { MyInput } from "./Styled";
+import { StudentContext } from "../../context";
+import { useEffect, useContext } from "react";
 
 const ariaLabel = { "aria-label": "description" };
 
-const Form = (props) => {
-  //Essa informações devem vir do estado compartilhado
-  const [nome, setNome] = React.useState(props.nome);
-  const [cidade, setCidade] = React.useState(props.cidade);
-  const [idade, setIdade] = React.useState(props.idade);
+const Edit = (props) => {
+  const [nome, setNome] = React.useState();
+  const [cidade, setCidade] = React.useState();
+  const [idade, setIdade] = React.useState();
+  const {students} = useContext(StudentContext);
+
+  useEffect(() => {
+    const studentSelected = students.find(student => student.id === props.id)
+    setNome(studentSelected.nome);
+    setIdade(studentSelected.idade);
+    setCidade(studentSelected.cidade);
+  },[]) 
+
   const submit = (e) => {
     e.preventDefault();
-    props.putStudent({ nome, cidade, idade, id:props.id });
+    props.putStudent({ nome, cidade, idade, id: props.id });
   };
 
   return (
@@ -57,4 +67,4 @@ const Form = (props) => {
   );
 };
 
-export default Form;
+export default Edit;
