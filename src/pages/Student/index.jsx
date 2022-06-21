@@ -29,6 +29,9 @@ import {
   MyContainerSub,
 } from "./Styled";
 import Form from "./Edit";
+import { useEffect } from "react";
+import Lottie from "react-lottie";
+import loadingAnimation from "../../components/Animation/loading.json";
 
 const Students = () => {
   const [list, setList] = useState([]); //seja um useContext
@@ -37,6 +40,16 @@ const Students = () => {
   const [cidade, setCidade] = useState("");
   const [resposta, setResposta] = useState(null);
   const [displayForm, setDisplayForm] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loadingAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   const getAll = () => {
     axios
@@ -45,6 +58,14 @@ const Students = () => {
         setList(response.data); //Set list deve ser uma lista de alunos do estado compartilhado
       });
   };
+
+  useEffect(() => {
+    if (list.length > 0) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1200);
+    }
+  }, [list]);
 
   const postStudent = (e) => {
     e.preventDefault();
@@ -114,22 +135,25 @@ const Students = () => {
       </MyTitleStudents>
       <ImageStudent src="https://cdni.iconscout.com/illustration/premium/thumb/online-study-2710520-2261196.png" />
       <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            onClick={getAll}
-          >
-            <Typography>
-              Students <IconForm />
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <MyTitleForm style={{ textAlign: "center" }}>
-              Table of students
-            </MyTitleForm>
-            <Typography>
-              <MyContainerSub>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+          onClick={getAll}
+        >
+          <Typography>
+            Students <IconForm />
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MyTitleForm style={{ textAlign: "center" }}>
+            Table of students
+          </MyTitleForm>
+          <Typography>
+            <MyContainerSub>
+              {loading ? (
+                <Lottie options={defaultOptions} height={115} width={350} />
+              ) : (
                 <TableContainer component={Paper}>
                   <Table
                     sx={{ minWidth: 650, marginTop: 2.5, marginBottom: 2.5 }}
@@ -196,17 +220,18 @@ const Students = () => {
                     </MyTitleTable>
                   )}
                 </TableContainer>
-              </MyContainerSub>
-              {displayForm && (
-                <Form
-                  nome={displayForm.nome}
-                  cidade={displayForm.cidade}
-                  idade={displayForm.idade}
-                  putStudent={updateStudent}
-                />
               )}
-            </Typography>
-          </AccordionDetails>
+            </MyContainerSub>
+            {displayForm && (
+              <Form
+                nome={displayForm.nome}
+                cidade={displayForm.cidade}
+                idade={displayForm.idade}
+                putStudent={updateStudent}
+              />
+            )}
+          </Typography>
+        </AccordionDetails>
       </Accordion>
       <BoxFormStudent component="form" onSubmit={postStudent} autoComplete="on">
         <MyTitleForm>Add new student</MyTitleForm>

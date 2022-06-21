@@ -28,6 +28,9 @@ import {
   MyDeleteIcon,
 } from "./Styled";
 import Form from "./Edit";
+import { useEffect } from "react";
+import Lottie from "react-lottie";
+import loadingAnimation from "../../components/Animation/loading.json";
 
 const Subjects = () => {
   const [list, setList] = useState([]);
@@ -35,6 +38,16 @@ const Subjects = () => {
   const [titulo, setTitulo] = useState("");
   const [resposta, setResposta] = useState(null);
   const [displayForm, setDisplayForm] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loadingAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   const getAll = () => {
     axios
@@ -43,6 +56,14 @@ const Subjects = () => {
         setList(response.data);
       });
   };
+
+  useEffect(() => {
+    if (list.length > 0) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1200);
+    }
+  }, [list]);
 
   const postSubject = (e) => {
     e.preventDefault();
@@ -133,72 +154,76 @@ const Subjects = () => {
           </MyTitleForm>
           <Typography>
             <MyContainerSub>
-              <TableContainer component={Paper}>
-                <Table
-                  sx={{ minWidth: 650, marginTop: 2.5, marginBottom: 2.5 }}
-                  size="small"
-                  aria-label="a dense table"
-                >
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>
-                        <strong>ID</strong>
-                      </TableCell>
-                      <TableCell align="center">
-                        <strong>Subject</strong>
-                      </TableCell>
-                      <TableCell align="center">
-                        <strong>Teacher's name</strong>
-                      </TableCell>
-                      <TableCell align="center">
-                        <strong>Edit</strong>
-                      </TableCell>
-                      <TableCell align="center">
-                        <strong>Delete</strong>
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {list.map((item) => (
+              {loading ? (
+                <Lottie options={defaultOptions} height={115} width={350} />
+              ) : (
+                <TableContainer component={Paper}>
+                  <Table
+                    sx={{ minWidth: 650, marginTop: 2.5, marginBottom: 2.5 }}
+                    size="small"
+                    aria-label="a dense table"
+                  >
+                    <TableHead>
                       <TableRow>
-                        <TableCell component="th" scope="row">
-                          {item.id}
-                        </TableCell>
-                        <TableCell align="center">{item.titulo}</TableCell>
-                        <TableCell align="center">
-                          {item.professor_nome}
+                        <TableCell>
+                          <strong>ID</strong>
                         </TableCell>
                         <TableCell align="center">
-                          <Button onClick={() => setDisplayForm(item)}>
-                            <EditIcon style={{ color: "orange" }} />
-                          </Button>
+                          <strong>Subject</strong>
                         </TableCell>
                         <TableCell align="center">
-                          <Button onClick={() => deleteSubject(item.id)}>
-                            <MyDeleteIcon />
-                          </Button>
+                          <strong>Teacher's name</strong>
+                        </TableCell>
+                        <TableCell align="center">
+                          <strong>Edit</strong>
+                        </TableCell>
+                        <TableCell align="center">
+                          <strong>Delete</strong>
                         </TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-                {resposta && resposta.data.message && (
-                  <MyTitleSubject
-                    style={{
-                      textAlign: "center",
-                      fontSize: "15px",
-                      color: "#000",
-                      marginLeft: "3rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {resposta.data.message}
-                    <Button onClick={refreshPage}>
-                      <IconRefresh />
-                    </Button>
-                  </MyTitleSubject>
-                )}
-              </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                      {list.map((item) => (
+                        <TableRow>
+                          <TableCell component="th" scope="row">
+                            {item.id}
+                          </TableCell>
+                          <TableCell align="center">{item.titulo}</TableCell>
+                          <TableCell align="center">
+                            {item.professor_nome}
+                          </TableCell>
+                          <TableCell align="center">
+                            <Button onClick={() => setDisplayForm(item)}>
+                              <EditIcon style={{ color: "orange" }} />
+                            </Button>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Button onClick={() => deleteSubject(item.id)}>
+                              <MyDeleteIcon />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                  {resposta && resposta.data.message && (
+                    <MyTitleSubject
+                      style={{
+                        textAlign: "center",
+                        fontSize: "15px",
+                        color: "#000",
+                        marginLeft: "3rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {resposta.data.message}
+                      <Button onClick={refreshPage}>
+                        <IconRefresh />
+                      </Button>
+                    </MyTitleSubject>
+                  )}
+                </TableContainer>
+              )}
             </MyContainerSub>
             {displayForm && (
               <Form
