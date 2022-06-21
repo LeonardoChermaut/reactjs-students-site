@@ -29,12 +29,13 @@ import {
   MyContainerSub,
 } from "./Styled";
 import Form from "./Edit";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import Lottie from "react-lottie";
 import loadingAnimation from "../../components/Animation/loading.json";
+import { StudentContext } from "../../context";
 
 const Students = () => {
-  const [list, setList] = useState([]); //seja um useContext
+  const {students, setStudents} = useContext(StudentContext);
   const [nome, setNome] = useState("");
   const [idade, setIdade] = useState("");
   const [cidade, setCidade] = useState("");
@@ -55,17 +56,17 @@ const Students = () => {
     axios
       .get("https://secret-headland-69654.herokuapp.com/alunos/")
       .then((response) => {
-        setList(response.data); //Set list deve ser uma lista de alunos do estado compartilhado
+        setStudents(response.data);
       });
   };
 
   useEffect(() => {
-    if (list.length > 0) {
+    if (students.length > 0) {
       setTimeout(() => {
         setLoading(false);
       }, 1200);
     }
-  }, [list]);
+  }, [students]);
 
   const postStudent = (e) => {
     e.preventDefault();
@@ -97,7 +98,7 @@ const Students = () => {
       })
       .then((response) => {
         setResposta(response);
-        setList((oldList) => oldList.filter((item) => item.id));
+        setStudents((oldList) => oldList.filter((item) => item.id));
       });
   };
 
@@ -116,7 +117,7 @@ const Students = () => {
       .then((response) => {
         setResposta(response);
         console.log(response);
-        setList((oldList) =>
+        setStudents((oldList) =>
           oldList.map((item) => (item.id === displayForm.id ? response : item))
         );
       });
@@ -183,7 +184,7 @@ const Students = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {list.map((item) => (
+                      {students.map((item) => (
                         <TableRow>
                           <TableCell component="th" scope="row">
                             {item.id}
@@ -224,6 +225,7 @@ const Students = () => {
             </MyContainerSub>
             {displayForm && (
               <Form
+                id={displayForm.id}
                 nome={displayForm.nome}
                 cidade={displayForm.cidade}
                 idade={displayForm.idade}

@@ -5,7 +5,7 @@ import { MyInput } from "./Styled";
 
 const ariaLabel = { "aria-label": "description" };
 
-const Form = (props) => {
+const Edit = (props) => {
     const [professor_nome, setProfessor_Nome] = React.useState(props.professor_nome);
     const [titulo, setTitulo] = React.useState(props.titulo);
 
@@ -48,4 +48,4 @@ const Form = (props) => {
     );
 };
 
-export default Form;
+export default Edit;
