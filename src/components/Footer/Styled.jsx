@@ -19,12 +19,12 @@ export const Footer = styled.footer`
 
 export const MyTextFooter = styled.p`
   position: absolute;
-  margin-left: -3.5rem;
+  margin-left: -4rem;
   text-align: center;
   justify-content: end;
-  margin-top: 4.5rem;
-  font-size: 8px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-top: 4.3rem;
+  font-size: 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #fff;
 `;
 export const NetworkTitleFooter = styled.p`
@@ -32,6 +32,7 @@ export const NetworkTitleFooter = styled.p`
   display: flex;
   margin-top: 2rem;
   color: #fff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 `;
 
 export const MyLinkFooter = styled.a`
