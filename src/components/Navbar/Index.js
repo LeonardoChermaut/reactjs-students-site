@@ -24,6 +24,14 @@ const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { themeSelected, setThemeSelected } = useContext(ThemeContext);
 
+  const changeTheme = () => {
+    if (themeSelected === "light") {
+      setThemeSelected("dark");
+    } else {
+      setThemeSelected("light");
+    }
+  };
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -36,13 +44,7 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const changeTheme = () => {
-    if (themeSelected === "light") {
-      setThemeSelected("dark");
-    } else {
-      setThemeSelected("light");
-    }
-  };
+
 
   return (
     <MyNavbar>
@@ -151,7 +153,7 @@ const Navbar = () => {
               Blog
             </MyButtonNav>
           </Box>
-          <Switch onClick={changeTheme} />
+          <Switch color='inherit' onClick={changeTheme} />
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

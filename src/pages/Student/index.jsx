@@ -31,7 +31,7 @@ import {
 import Form from "./Edit";
 
 const Students = () => {
-  const [list, setList] = useState([]);//seja um useContext
+  const [list, setList] = useState([]); //seja um useContext
   const [nome, setNome] = useState("");
   const [idade, setIdade] = useState("");
   const [cidade, setCidade] = useState("");
@@ -88,8 +88,9 @@ const Students = () => {
       idade: item.idade,
     };
     await axios
-      .put("https://secret-headland-69654.herokuapp.com/alunos/", 
-      putBodyRequest
+      .put(
+        "https://secret-headland-69654.herokuapp.com/alunos/",
+        putBodyRequest
       )
       .then((response) => {
         setResposta(response);
@@ -99,11 +100,11 @@ const Students = () => {
         );
       });
   };
-  
+
   function refreshPage() {
     window.location.reload();
   }
-  
+
   return (
     <MyContainer>
       <MyTitleStudents>
@@ -113,105 +114,102 @@ const Students = () => {
       </MyTitleStudents>
       <ImageStudent src="https://cdni.iconscout.com/illustration/premium/thumb/online-study-2710520-2261196.png" />
       <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-          onClick={getAll}
-        >
-          <Typography>
-          Students <IconForm />
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <MyTitleForm style={{ textAlign: "center" }}>
-            Table of students
-          </MyTitleForm>
-          <Typography>
-            <MyContainerSub>
-              <TableContainer component={Paper}>
-                <Table
-                  sx={{ minWidth: 650, marginTop: 2.5, marginBottom: 2.5 }}
-                  size="small"
-                  aria-label="a dense table"
-                >
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>
-                        <strong>ID</strong>
-                      </TableCell>
-                      <TableCell align="center">
-                        <strong>Name</strong>
-                      </TableCell>
-                      <TableCell align="center">
-                        <strong>City</strong>
-                      </TableCell>
-                      <TableCell align="center">
-                        <strong>Age</strong>
-                      </TableCell>
-                      <TableCell align="center">
-                        <strong>Edit</strong>
-                      </TableCell>
-                      <TableCell align="center">
-                        <strong>Delete</strong>
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {list.map((item) => (
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            onClick={getAll}
+          >
+            <Typography>
+              Students <IconForm />
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <MyTitleForm style={{ textAlign: "center" }}>
+              Table of students
+            </MyTitleForm>
+            <Typography>
+              <MyContainerSub>
+                <TableContainer component={Paper}>
+                  <Table
+                    sx={{ minWidth: 650, marginTop: 2.5, marginBottom: 2.5 }}
+                    size="small"
+                    aria-label="a dense table"
+                  >
+                    <TableHead>
                       <TableRow>
-                        <TableCell component="th" scope="row">
-                          {item.id}
-                        </TableCell>
-                        <TableCell align="center">{item.nome}</TableCell>
-                        <TableCell align="center">{item.cidade}</TableCell>
-                        <TableCell align="center">{item.idade}</TableCell>
-                        <TableCell align="center">
-                          <Button onClick={() => setDisplayForm(item)}>
-                            <EditIcon style={{ color: "orange" }} />
-                          </Button>
+                        <TableCell>
+                          <strong>ID</strong>
                         </TableCell>
                         <TableCell align="center">
-                          <Button onClick={() => deleteStudent(item.id)}>
-                            <MyDeleteIcon />
-                          </Button>
+                          <strong>Name</strong>
+                        </TableCell>
+                        <TableCell align="center">
+                          <strong>City</strong>
+                        </TableCell>
+                        <TableCell align="center">
+                          <strong>Age</strong>
+                        </TableCell>
+                        <TableCell align="center">
+                          <strong>Edit</strong>
+                        </TableCell>
+                        <TableCell align="center">
+                          <strong>Delete</strong>
                         </TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-                {resposta && resposta.data.message && (
-                  <MyTitleTable
-                    style={{
-                      textAlign: "center",
-                      fontSize: "15px",
-                      color: "#000",
-                    }}
-                  >
-                    {resposta.data.message}
-                    <Button onClick={refreshPage}>
-                      <IconRefresh />
-                    </Button>
-                  </MyTitleTable>
-                )}
-              </TableContainer>
-            </MyContainerSub>
-            {displayForm && (
-              <Form
-                nome={displayForm.nome}
-                cidade={displayForm.cidade}
-                idade={displayForm.idade}
-                putStudent={updateStudent}
-              />
-            )}
-          </Typography>
-        </AccordionDetails>
+                    </TableHead>
+                    <TableBody>
+                      {list.map((item) => (
+                        <TableRow>
+                          <TableCell component="th" scope="row">
+                            {item.id}
+                          </TableCell>
+                          <TableCell align="center">{item.nome}</TableCell>
+                          <TableCell align="center">{item.cidade}</TableCell>
+                          <TableCell align="center">{item.idade}</TableCell>
+                          <TableCell align="center">
+                            <Button onClick={() => setDisplayForm(item)}>
+                              <EditIcon style={{ color: "orange" }} />
+                            </Button>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Button onClick={() => deleteStudent(item.id)}>
+                              <MyDeleteIcon />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                  {resposta && resposta.data.message && (
+                    <MyTitleTable
+                      style={{
+                        textAlign: "center",
+                        fontSize: "15px",
+                        color: "#000",
+                      }}
+                    >
+                      {resposta.data.message}
+                      <Button onClick={refreshPage}>
+                        <IconRefresh />
+                      </Button>
+                    </MyTitleTable>
+                  )}
+                </TableContainer>
+              </MyContainerSub>
+              {displayForm && (
+                <Form
+                  nome={displayForm.nome}
+                  cidade={displayForm.cidade}
+                  idade={displayForm.idade}
+                  putStudent={updateStudent}
+                />
+              )}
+            </Typography>
+          </AccordionDetails>
       </Accordion>
-      <BoxFormStudent
-        component="form"
-        onSubmit={postStudent}
-        autoComplete="on">
-        <MyTitleForm>Add new students</MyTitleForm>
+      <BoxFormStudent component="form" onSubmit={postStudent} autoComplete="on">
+        <MyTitleForm>Add new student</MyTitleForm>
         <InputStudent
           placeholder="Name"
           value={nome}
@@ -224,6 +222,7 @@ const Students = () => {
         />
         <InputStudent
           placeholder="Age"
+          type="number"
           value={idade}
           onChange={(e) => setIdade(e.target.value)}
         />

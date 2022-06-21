@@ -6,25 +6,37 @@ import Home from "./pages/Home/Index";
 import Navbar from "./components/Navbar/Index";
 import Footer from "./components/Footer/Index";
 import "./index.css";
-import { MyThemeProvider } from "./context";
 import NotFound from "./pages/NotFound/Index";
+import { useContext } from "react";
+import {ThemeContext} from "./context/index";
 
 function App() {
-  return (
-    <MyThemeProvider>
-      <div className="MyDiv">
-        <Navbar />
+  const { selectedTheme } = useContext(ThemeContext);
 
+  const theme = {
+    light: {
+      backgroundColor: '#fff',
+      color: "#202225"
+    },
+    dark: {
+      backgroundColor: '#202225',
+      color: "#fff"
+    },
+  };
+
+  return (
+    <div className="MyDiv" style={theme[selectedTheme]}>
+     
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="alunos" element={<Students />} />
           <Route path="materias" element={<Subjects />} />
-
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
-      </div>
-    </MyThemeProvider>
+     
+    </div>
   );
 }
 
