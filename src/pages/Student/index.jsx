@@ -211,6 +211,7 @@ const Students = () => {
       <BoxFormStudent component="form" onSubmit={postStudent} autoComplete="on">
         <MyTitleForm>Add new student</MyTitleForm>
         <InputStudent
+      
           placeholder="Name"
           value={nome}
           onChange={(e) => setNome(e.target.value)}

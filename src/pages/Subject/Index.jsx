@@ -210,11 +210,8 @@ const Subjects = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <BoxFormSubject 
-      component="form" 
-      onSubmit={postSubject} 
-      autoComplete="on">
-        <MyTitleForm>Add new subjects</MyTitleForm>
+      <BoxFormSubject component="form" onSubmit={postSubject} autoComplete="on">
+        <MyTitleForm>Add new subject</MyTitleForm>
         <InputSubject
           placeholder="Title"
           value={titulo}

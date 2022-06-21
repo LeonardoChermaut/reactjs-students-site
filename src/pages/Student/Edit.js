@@ -12,7 +12,7 @@ const Form = (props) => {
   const [idade, setIdade] = React.useState(props.idade);
   const submit = (e) => {
     e.preventDefault();
-    props.putStudent({ nome, cidade, idade, id:props.id });
+    props.putStudent({ nome, cidade, idade, id: props.id });
   };
 
   return (

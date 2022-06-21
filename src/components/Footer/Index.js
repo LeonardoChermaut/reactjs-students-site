@@ -14,14 +14,13 @@ export default function ButtonAppBar() {
     <Footer>
       <NetworkTitleFooter>
         <MyLinkFooter href="#">
-          Siga-nos
+          Follow
           <InstaIcon />
         </MyLinkFooter>
       </NetworkTitleFooter>
-
       <NetworkTitleFooter>
         <MyLinkFooter href="#">
-          Conecte conosco
+          Connect with us
           <InIcon />
         </MyLinkFooter>
       </NetworkTitleFooter>
@@ -31,7 +30,6 @@ export default function ButtonAppBar() {
           <MailIcon />
         </MyLinkFooter>
       </NetworkTitleFooter>
-
       <MyTextFooter style={{ justifyContent: "flex-end" }}>
         <br></br>Copyright &copy; serratec.org
       </MyTextFooter>
