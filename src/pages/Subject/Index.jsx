@@ -9,7 +9,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IconRefresh, MyDeleteIcon } from "./Styled";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -17,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
 import {
+  IconRefresh,
   IconForm,
   MyContainer,
   MyTitleForm,
@@ -25,6 +25,7 @@ import {
   ImageSubject,
   MyTitleSubject,
   MyContainerSub,
+  MyDeleteIcon,
 } from "./Styled";
 import Form from "./Edit";
 
@@ -213,9 +214,7 @@ const Subjects = () => {
       component="form" 
       onSubmit={postSubject} 
       autoComplete="on">
-        
         <MyTitleForm>Add new subjects</MyTitleForm>
-
         <InputSubject
           placeholder="Title"
           value={titulo}
@@ -226,7 +225,6 @@ const Subjects = () => {
           value={professor_nome}
           onChange={(e) => setProfessor_Nome(e.target.value)}
         />
-
         <Button
           style={{ backgroundColor: "orange" }}
           type="Submit"

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
@@ -9,7 +9,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -17,21 +16,20 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
 import {
-  IconForm,
-  MyTitleForm,
-  MyTitleStudents,
-  MyDeleteIcon,
-  BoxFormStudent,
-  InputStudent,
-  ImageStudent,
-  MyContainer,
-  MyContainerSub,
-  MyTitleTable,
   IconRefresh,
-} from "../Student/Styled";
+  IconForm,
+  MyContainer,
+  MyTitleForm,
+  BoxFormStudent,
+  MyDeleteIcon,
+  InputStudent,
+  MyTitleStudents,
+  ImageStudent,
+  MyTitleTable,
+  MyContainerSub,
+} from "./Styled";
 import Form from "./Edit";
 
-const ariaLabel = { "aria-label": "description" };
 const Students = () => {
   const [list, setList] = useState([]);//seja um useContext
   const [nome, setNome] = useState("");
@@ -39,10 +37,6 @@ const Students = () => {
   const [cidade, setCidade] = useState("");
   const [resposta, setResposta] = useState(null);
   const [displayForm, setDisplayForm] = useState(null);
-
-  function refreshPage() {
-    window.location.reload();
-  }
 
   const getAll = () => {
     axios
@@ -105,7 +99,11 @@ const Students = () => {
         );
       });
   };
-
+  
+  function refreshPage() {
+    window.location.reload();
+  }
+  
   return (
     <MyContainer>
       <MyTitleStudents>
@@ -212,39 +210,28 @@ const Students = () => {
       <BoxFormStudent
         component="form"
         onSubmit={postStudent}
-        sx={{
-          marginTop: 10,
-        }}
-        noValidate
-        autoComplete="off"
-      >
+        autoComplete="on">
         <MyTitleForm>Add new students</MyTitleForm>
-
         <InputStudent
           placeholder="Name"
-          inputProps={ariaLabel}
           value={nome}
           onChange={(e) => setNome(e.target.value)}
         />
         <InputStudent
           placeholder="City"
-          inputProps={ariaLabel}
           value={cidade}
           onChange={(e) => setCidade(e.target.value)}
         />
         <InputStudent
           placeholder="Age"
-          inputProps={ariaLabel}
           value={idade}
           onChange={(e) => setIdade(e.target.value)}
         />
-
         <Button
           style={{ backgroundColor: "orange" }}
           type="Submit"
           variant="contained"
           endIcon={<SendIcon />}
-          onClick={refreshPage}
         >
           Submit
         </Button>
