@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
@@ -9,7 +9,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -17,47 +16,37 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
 import {
-  IconForm,
-  ListButton,
-  MyTitleForm,
-  MyTitleStudents,
-  MyDeleteIcon,
-  BoxFormStudent,
-  InputStudent,
-  ImageStudent,
-  MyContainer,
-  MyContainerSub,
-  MyTitleTable,
   IconRefresh,
-} from "../Student/Styled";
-import Form from "../../components/Form/Index";
-const ariaLabel = { "aria-label": "description" };
+  IconForm,
+  MyContainer,
+  MyTitleForm,
+  BoxFormStudent,
+  MyDeleteIcon,
+  InputStudent,
+  MyTitleStudents,
+  ImageStudent,
+  MyTitleTable,
+  MyContainerSub,
+} from "./Styled";
+import Form from "./Edit";
 
 const Students = () => {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState([]);//seja um useContext
   const [nome, setNome] = useState("");
   const [idade, setIdade] = useState("");
   const [cidade, setCidade] = useState("");
   const [resposta, setResposta] = useState(null);
-  const [exibirForm, setExibirForm] = useState(null);
-
-  function refreshPage() {
-    window.location.reload();
-  }
-
-  const handleEdit = (item) => {
-    setExibirForm(item);
-  };
+  const [displayForm, setDisplayForm] = useState(null);
 
   const getAll = () => {
     axios
       .get("https://secret-headland-69654.herokuapp.com/alunos/")
       .then((response) => {
-        setList(response.data);
+        setList(response.data); //Set list deve ser uma lista de alunos do estado compartilhado
       });
   };
 
-  const postUser = (e) => {
+  const postStudent = (e) => {
     e.preventDefault();
     const postBodyRequest = {
       nome,
@@ -74,7 +63,7 @@ const Students = () => {
       });
   };
 
-  const deleteUser = async (id) => {
+  const deleteStudent = async (id) => {
     const delBodyRequest = {
       id,
       nome,
@@ -91,26 +80,30 @@ const Students = () => {
       });
   };
 
-  const updateUser = async (item) => {
+  const updateStudent = async (item) => {
     const putBodyRequest = {
-      id: exibirForm.id,
+      id: displayForm.id,
       nome: item.nome,
       cidade: item.cidade,
       idade: item.idade,
     };
     await axios
-      .put("https://secret-headland-69654.herokuapp.com/alunos/", {
-        data: putBodyRequest,
-      })
+      .put("https://secret-headland-69654.herokuapp.com/alunos/", 
+      putBodyRequest
+      )
       .then((response) => {
         setResposta(response);
         console.log(response);
         setList((oldList) =>
-          oldList.map((item) => (item.id === exibirForm.id ? response : item))
+          oldList.map((item) => (item.id === displayForm.id ? response : item))
         );
       });
   };
-
+  
+  function refreshPage() {
+    window.location.reload();
+  }
+  
   return (
     <MyContainer>
       <MyTitleStudents>
@@ -127,12 +120,12 @@ const Students = () => {
           onClick={getAll}
         >
           <Typography>
-            Listar Api <IconForm />
+          Students <IconForm />
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <MyTitleForm style={{ textAlign: "center" }}>
-            Tabela de alunos
+            Table of students
           </MyTitleForm>
           <Typography>
             <MyContainerSub>
@@ -148,19 +141,19 @@ const Students = () => {
                         <strong>ID</strong>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>Nome</strong>
+                        <strong>Name</strong>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>Cidade</strong>
+                        <strong>City</strong>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>Idade</strong>
+                        <strong>Age</strong>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>Editar</strong>
+                        <strong>Edit</strong>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>Excluir</strong>
+                        <strong>Delete</strong>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -174,12 +167,12 @@ const Students = () => {
                         <TableCell align="center">{item.cidade}</TableCell>
                         <TableCell align="center">{item.idade}</TableCell>
                         <TableCell align="center">
-                          <Button onClick={() => setExibirForm(item)}>
+                          <Button onClick={() => setDisplayForm(item)}>
                             <EditIcon style={{ color: "orange" }} />
                           </Button>
                         </TableCell>
                         <TableCell align="center">
-                          <Button onClick={() => deleteUser(item.id)}>
+                          <Button onClick={() => deleteStudent(item.id)}>
                             <MyDeleteIcon />
                           </Button>
                         </TableCell>
@@ -203,12 +196,12 @@ const Students = () => {
                 )}
               </TableContainer>
             </MyContainerSub>
-            {exibirForm && (
+            {displayForm && (
               <Form
-                nome={exibirForm.nome}
-                cidade={exibirForm.cidade}
-                idade={exibirForm.idade}
-                putUser={updateUser}
+                nome={displayForm.nome}
+                cidade={displayForm.cidade}
+                idade={displayForm.idade}
+                putStudent={updateStudent}
               />
             )}
           </Typography>
@@ -216,42 +209,31 @@ const Students = () => {
       </Accordion>
       <BoxFormStudent
         component="form"
-        onSubmit={postUser}
-        sx={{
-          marginTop: 10,
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <MyTitleForm>Adicionar novos alunos</MyTitleForm>
-
+        onSubmit={postStudent}
+        autoComplete="on">
+        <MyTitleForm>Add new students</MyTitleForm>
         <InputStudent
-          placeholder="Nome"
-          inputProps={ariaLabel}
+          placeholder="Name"
           value={nome}
           onChange={(e) => setNome(e.target.value)}
         />
         <InputStudent
-          placeholder="Cidade"
-          inputProps={ariaLabel}
+          placeholder="City"
           value={cidade}
           onChange={(e) => setCidade(e.target.value)}
         />
         <InputStudent
-          placeholder="Idade"
-          inputProps={ariaLabel}
+          placeholder="Age"
           value={idade}
           onChange={(e) => setIdade(e.target.value)}
         />
-
         <Button
           style={{ backgroundColor: "orange" }}
           type="Submit"
           variant="contained"
           endIcon={<SendIcon />}
-          onClick={refreshPage}
         >
-          Enviar
+          Submit
         </Button>
       </BoxFormStudent>
     </MyContainer>
