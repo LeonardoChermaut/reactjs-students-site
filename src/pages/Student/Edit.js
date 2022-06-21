@@ -40,6 +40,7 @@ const Form = (props) => {
       <MyInput
         placeholder="Age"
         inputProps={ariaLabel}
+        type="number"
         value={idade}
         onChange={({ target }) => setIdade(target.value)}
       />
