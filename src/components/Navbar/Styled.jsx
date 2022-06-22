@@ -4,7 +4,7 @@ import { Button, Typography } from "@mui/material";
 
 export const MyNavbar = styled(AppBar)`
   && {
-    background: rgb(61, 29, 121);
+    background: linear-gradient(90deg, rgb(79, 29, 79) 33%, #352261 100%);
   }
 `;
 

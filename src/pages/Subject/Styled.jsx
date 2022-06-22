@@ -87,7 +87,7 @@ export const MyTitleSubject = styled.p`
   text-align: center;
   font-size: 21px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #a5660c;
+  color: orange;
 `;
 
 export const IconRefresh = styled(RestartAltIcon)`
