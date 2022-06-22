@@ -28,14 +28,14 @@ import {
   MyTitleTable,
   MyContainerSub,
 } from "./Styled";
-import Form from "./Edit";
+import Form from "./Form";
 import { useEffect, useContext } from "react";
 import Lottie from "react-lottie";
 import loadingAnimation from "../../components/Animation/loading.json";
 import { StudentContext } from "../../context";
 
 const Students = () => {
-  const {students, setStudents} = useContext(StudentContext);
+  const { students, setStudents } = useContext(StudentContext);
   const [nome, setNome] = useState("");
   const [idade, setIdade] = useState("");
   const [cidade, setCidade] = useState("");
@@ -238,7 +238,6 @@ const Students = () => {
       <BoxFormStudent component="form" onSubmit={postStudent} autoComplete="on">
         <MyTitleForm>Add new student</MyTitleForm>
         <InputStudent
-      
           placeholder="Name"
           value={nome}
           onChange={(e) => setNome(e.target.value)}

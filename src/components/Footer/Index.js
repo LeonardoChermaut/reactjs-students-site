@@ -4,34 +4,31 @@ import {
   InIcon,
   InstaIcon,
   MailIcon,
+  LiFooter,
   MyLinkFooter,
   MyTextFooter,
-  NetworkTitleFooter,
+  UlCustomFooter,
 } from "./Styled";
 
 export default function ButtonAppBar() {
   return (
     <Footer>
-      <NetworkTitleFooter>
-        <MyLinkFooter href="#">
-          Follow
+      <UlCustomFooter>
+        <LiFooter>
           <InstaIcon />
-        </MyLinkFooter>
-      </NetworkTitleFooter>
-      <NetworkTitleFooter>
-        <MyLinkFooter href="#">
-          Connect with us
+          <MyLinkFooter href="#">Follow</MyLinkFooter>
+        </LiFooter>
+        <LiFooter>
           <InIcon />
-        </MyLinkFooter>
-      </NetworkTitleFooter>
-      <NetworkTitleFooter>
-        <MyLinkFooter href="#">
-          tabelas@dev.com
+          <MyLinkFooter href="#">Connect with us</MyLinkFooter>
+        </LiFooter>
+        <LiFooter>
           <MailIcon />
-        </MyLinkFooter>
-      </NetworkTitleFooter>
-      <MyTextFooter style={{ justifyContent: "flex-end" }}>
-        <br></br>Copyright &copy; serratec.org
+          <MyLinkFooter href="#">tabelas@dev.com</MyLinkFooter>
+        </LiFooter>
+      </UlCustomFooter>
+      <MyTextFooter>
+        Todos os direitos reservados.<br></br> Copyright &copy; serratec.org
       </MyTextFooter>
     </Footer>
   );

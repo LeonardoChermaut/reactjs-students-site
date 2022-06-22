@@ -5,32 +5,26 @@ import EmailIcon from "@mui/icons-material/Email";
 
 export const Footer = styled.footer`
   display: flex;
-  justify-content: space-around;
+  flex-direction: row-reverse;
+  justify-content: center;
   width: 100%;
   height: 100px;
   background: rgb(2, 0, 36);
   background: linear-gradient(90deg, rgb(57, 28, 57) 33%, #4f0606 100%);
   position: fixed;
   bottom: 0px;
-  left: 0px;
-  right: 0px;
-  margin-bottom: 0px;
 `;
 
 export const MyTextFooter = styled.p`
-  position: absolute;
-  margin-left: -4rem;
   text-align: center;
-  justify-content: end;
-  margin-top: 4.3rem;
-  font-size: 10px;
+  margin-left: 5rem;
+  margin-top: 1.9rem;
+  font-size: 13px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #fff;
 `;
 export const NetworkTitleFooter = styled.p`
   text-align: center;
-  display: flex;
-  margin-top: 2rem;
   color: #fff;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 `;
@@ -42,31 +36,36 @@ export const MyLinkFooter = styled.a`
     color: orange;
   }
 `;
+
+export const LiFooter = styled.li`
+  list-style: none;
+`;
+export const UlCustomFooter = styled.ul``;
 export const InstaIcon = styled(InstagramIcon)`
   && {
     color: #fff;
     width: 18px;
     padding: 0;
-    margin-left: 3px;
+    margin-right: 7px;
     margin-top: -2.5px;
-    margin-bottom: -8px;
+    margin-bottom: -6px;
   }
 `;
 
 export const InIcon = styled(LinkedInIcon)`
   && {
-    margin-left: 3px;
+    margin-right: 7px;
     margin-top: -2.5px;
-    margin-bottom: -8px;
+    margin-bottom: -6px;
     color: #fff;
     width: 18px;
   }
 `;
 export const MailIcon = styled(EmailIcon)`
   && {
-    margin-left: 3px;
+    margin-right: 7px;
     margin-top: -2.5px;
-    margin-bottom: -8px;
+    margin-bottom: -7px;
     color: #fff;
     width: 18px;
   }

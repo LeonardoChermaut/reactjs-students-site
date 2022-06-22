@@ -27,7 +27,7 @@ import {
   MyContainerSub,
   MyDeleteIcon,
 } from "./Styled";
-import Form from "./Edit";
+import Form from "./Form";
 import { useEffect } from "react";
 import Lottie from "react-lottie";
 import loadingAnimation from "../../components/Animation/loading.json";
